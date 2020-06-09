@@ -31,6 +31,12 @@
 namespace solidity::yul
 {
 
+struct FunctionStackErrorInfo
+{
+	int maxDepth;
+	std::set<YulString> variables;
+};
+
 /**
  * Component that checks whether all variables are reachable on the stack and
  * returns a mapping from function name to the largest stack difference found
@@ -44,7 +50,7 @@ namespace solidity::yul
 class CompilabilityChecker
 {
 public:
-	static std::map<YulString, int> run(
+	static std::map<YulString, FunctionStackErrorInfo> run(
 		Dialect const& _dialect,
 		Object const& _object,
 		bool _optimizeStackAllocation
