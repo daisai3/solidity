@@ -787,12 +787,12 @@ BOOST_AUTO_TEST_CASE(solidity_keywords)
 	BOOST_CHECK_EQUAL(scanner.next(), Token::EOS);
 	scanner.reset(CharStream(keywords, ""));
 	scanner.setScannerMode(ScannerKind::Yul);
-	BOOST_CHECK_EQUAL(scanner.currentToken(), Token::Return);
-	BOOST_CHECK_EQUAL(scanner.next(), Token::Byte);
-	BOOST_CHECK_EQUAL(scanner.next(), Token::Bool);
-	BOOST_CHECK_EQUAL(scanner.next(), Token::Address);
-	BOOST_CHECK_EQUAL(scanner.next(), Token::Var);
-	BOOST_CHECK_EQUAL(scanner.next(), Token::In);
+	BOOST_CHECK_EQUAL(scanner.currentToken(), Token::Identifier);
+	BOOST_CHECK_EQUAL(scanner.next(), Token::Identifier);
+	BOOST_CHECK_EQUAL(scanner.next(), Token::Identifier);
+	BOOST_CHECK_EQUAL(scanner.next(), Token::Identifier);
+	BOOST_CHECK_EQUAL(scanner.next(), Token::Identifier);
+	BOOST_CHECK_EQUAL(scanner.next(), Token::Identifier);
 	BOOST_CHECK_EQUAL(scanner.next(), Token::TrueLiteral);
 	BOOST_CHECK_EQUAL(scanner.next(), Token::FalseLiteral);
 	BOOST_CHECK_EQUAL(scanner.next(), Token::Identifier);

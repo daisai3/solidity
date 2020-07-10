@@ -967,7 +967,14 @@ tuple<Token, unsigned, unsigned> Scanner::scanIdentifierOrKeyword()
 	while (isIdentifierPart(m_char) || (m_char == '.' && m_kind == ScannerKind::Yul))
 		addLiteralCharAndAdvance();
 	literal.complete();
-	return TokenTraits::fromIdentifierOrKeyword(m_tokens[NextNext].literal);
+	auto const token = TokenTraits::fromIdentifierOrKeyword(m_tokens[NextNext].literal);
+	if (m_kind == ScannerKind::Yul)
+	{
+		// Turn non-Yul keywords into identifiers.
+		if (!TokenTraits::isYulKeyword(std::get<0>(token)))
+			return std::make_tuple(Token::Identifier, 0, 0);
+	}
+	return token;
 }
 
 } // namespace solidity::langutil
