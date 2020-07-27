@@ -795,7 +795,7 @@ BOOST_AUTO_TEST_CASE(solidity_keywords)
 	BOOST_CHECK_EQUAL(scanner.next(), Token::Identifier);
 	BOOST_CHECK_EQUAL(scanner.next(), Token::TrueLiteral);
 	BOOST_CHECK_EQUAL(scanner.next(), Token::FalseLiteral);
-	BOOST_CHECK_EQUAL(scanner.next(), Token::Identifier);
+	BOOST_CHECK_EQUAL(scanner.next(), Token::Leave);
 	BOOST_CHECK_EQUAL(scanner.next(), Token::EOS);
 }
 
