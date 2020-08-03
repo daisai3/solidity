@@ -1,7 +1,8 @@
 {
     let a := add(0, mload(0))
+    sstore(0, a)
 }
 // ----
 // step: expressionSimplifier
 //
-// { let a := mload(0) }
+// { sstore(0, mload(0)) }

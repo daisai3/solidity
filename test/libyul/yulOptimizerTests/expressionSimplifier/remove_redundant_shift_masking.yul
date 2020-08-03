@@ -3,6 +3,8 @@
     let b := and(shr(248, calldataload(0)), 0xff)
     let c := and(shr(249, calldataload(0)), 0xfa)
     let d := and(shr(247, calldataload(0)), 0xff)
+    sstore(a, b)
+    sstore(c, d)
 }
 // ====
 // EVMVersion: >=constantinople
@@ -14,4 +16,6 @@
 //     let b := shr(248, calldataload(0))
 //     let c := and(shr(249, calldataload(0)), 0xfa)
 //     let d := and(shr(247, calldataload(0)), 0xff)
+//     sstore(a, b)
+//     sstore(c, d)
 // }

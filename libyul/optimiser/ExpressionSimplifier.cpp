@@ -27,10 +27,12 @@
 #include <libyul/AsmData.h>
 
 #include <libsolutil/CommonData.h>
+#include <libsolutil/Visitor.h>
 
 using namespace std;
 using namespace solidity;
 using namespace solidity::yul;
+using namespace solidity::util;
 
 void ExpressionSimplifier::run(OptimiserStepContext& _context, Block& _ast)
 {
@@ -40,17 +42,10 @@ void ExpressionSimplifier::run(OptimiserStepContext& _context, Block& _ast)
 void ExpressionSimplifier::visit(Expression& _expression)
 {
 	ASTModifier::visit(_expression);
-	while (auto match = SimplificationRules::findFirstMatch(_expression, m_dialect, m_value))
-	{
-		// Do not apply the rule if it removes non-constant parts of the expression.
-		// TODO: The check could actually be less strict than "movable".
-		// We only require "Does not cause side-effects".
-		// Note: References to variables that are only assigned once are always movable,
-		// so if the value of the variable is not movable, the expression that references
-		// the variable still is.
 
-		if (match->removesNonConstants && !SideEffectsCollector(m_dialect, _expression).movable())
+	while (auto const* match = SimplificationRules::findFirstMatch(_expression, m_dialect, m_value))
+		if (!SideEffectsCollector(m_dialect, _expression).movable())
 			return;
-		_expression = match->action().toExpression(locationOf(_expression));
-	}
+		else
+			_expression = match->action().toExpression(locationOf(_expression));
 }

@@ -313,6 +313,17 @@ void ReferencesResolver::resolveInheritDoc(StructuredDocumentation const& _docum
 	case 1:
 	{
 		string const& name = _annotation.docTags.find("inheritdoc")->second.content;
+		if (name.empty())
+		{
+			m_errorReporter.docstringParsingError(
+				1849_error,
+				_documentation.location(),
+				"Documentation tag @inheritdoc references inexistent contract \"" +
+				name +
+				"\"."
+			);
+			return;
+		}
 		vector<string> path;
 		boost::split(path, name, boost::is_any_of("."));
 		Declaration const* result = m_resolver.pathFromCurrentScope(path);

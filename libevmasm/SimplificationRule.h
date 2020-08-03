@@ -40,18 +40,15 @@ struct SimplificationRule
 	SimplificationRule(
 		Pattern _pattern,
 		std::function<Pattern()> _action,
-		bool _removesNonConstants,
 		std::function<bool()> _feasible = {}
 	):
 		pattern(std::move(_pattern)),
 		action(std::move(_action)),
-		removesNonConstants(_removesNonConstants),
 		feasible(std::move(_feasible))
 	{}
 
 	Pattern pattern;
 	std::function<Pattern()> action;
-	bool removesNonConstants;
 	std::function<bool()> feasible;
 };
 

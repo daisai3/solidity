@@ -1,5 +1,5 @@
 {
-    let ret := balance(address())
+    sstore(0, balance(address()))
 }
 // ====
 // EVMVersion: >=istanbul
