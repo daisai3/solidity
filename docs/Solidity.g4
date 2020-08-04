@@ -322,7 +322,11 @@ assemblyIdentifierList
   : assemblyIdentifier ( ',' assemblyIdentifier )* ;
 
 assemblyIdentifier
-  : Identifier ( '.' Identifier )* ;
+  : AssemblyIdentifierPart ( '.' AssemblyIdentifierPart )* ;
+
+// This includes all the Solidity keywords which are accepted by Yul
+AssemblyIdentifierPart
+  : ('abstract' | 'anonymous' | 'return' |  Identifier)
 
 assemblyStackAssignment
   : '=:' assemblyIdentifier ;
