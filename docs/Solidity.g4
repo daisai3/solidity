@@ -284,7 +284,7 @@ typeNameExpression
   | userDefinedTypeName ;
 
 assemblyItem
-  : Identifier
+  : assemblyIdentifier
   | assemblyBlock
   | assemblyExpression
   | assemblyLocalDefinition
@@ -310,7 +310,7 @@ assemblyExpression
   : assemblyCall | assemblyLiteral | assemblyIdentifier ;
 
 assemblyCall
-  : ( 'return' | 'address' | 'byte' | identifier ) ( '(' assemblyExpression? ( ',' assemblyExpression )* ')' )? ;
+  : assemblyIdentifier ( '(' assemblyExpression? ( ',' assemblyExpression )* ')' )? ;
 
 assemblyLocalDefinition
   : 'let' assemblyIdentifierList ( ':=' assemblyExpression )? ;
@@ -322,13 +322,13 @@ assemblyIdentifierList
   : assemblyIdentifier ( ',' assemblyIdentifier )* ;
 
 assemblyIdentifier
-  : identifier ( '.' identifier )* ;
+  : Identifier ( '.' Identifier )* ;
 
 assemblyStackAssignment
-  : '=:' identifier ;
+  : '=:' assemblyIdentifier ;
 
 labelDefinition
-  : identifier ':' ;
+  : assemblyIdentifier ':' ;
 
 assemblySwitch
   : 'switch' assemblyExpression assemblyCase* ;
@@ -338,7 +338,7 @@ assemblyCase
   | 'default' assemblyBlock ;
 
 assemblyFunctionDefinition
-  : 'function' identifier '(' assemblyTypedVariableList? ')'
+  : 'function' assemblyIdentifier '(' assemblyTypedVariableList? ')'
     assemblyFunctionReturns? assemblyBlock ;
 
 assemblyFunctionReturns
@@ -354,10 +354,10 @@ assemblyLiteral
   : ( stringLiteral | DecimalNumber | HexNumber | hexLiteral | BooleanLiteral ) assemblyType? ;
 
 assemblyTypedVariableList
-  : identifier assemblyType? ( ',' assemblyTypedVariableList )? ;
+  : assemblyIdentifier assemblyType? ( ',' assemblyTypedVariableList )? ;
 
 assemblyType
-  : ':' identifier ;
+  : ':' assemblyIdentifier ;
 
 subAssembly
   : 'assembly' identifier assemblyBlock ;
