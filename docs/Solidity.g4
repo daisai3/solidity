@@ -284,7 +284,7 @@ typeNameExpression
   | userDefinedTypeName ;
 
 assemblyItem
-  : identifier
+  : Identifier
   | assemblyBlock
   | assemblyExpression
   | assemblyLocalDefinition
